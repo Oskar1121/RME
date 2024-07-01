@@ -49,7 +49,7 @@ class MoveEvents final : public BaseEvents
 		ReturnValue onPlayerDeEquip(Player* player, Item* item, slots_t slot);
 		uint32_t onItemMove(Item* item, Tile* tile, bool isAdd);
 
-		MoveEvent* getEvent(Item* item, MoveEvent_t eventType);
+		MoveEvent* getEvent(const Tile* tile, Item* item, MoveEvent_t eventType);
 
 		bool registerLuaEvent(MoveEvent* event);
 		bool registerLuaFunction(MoveEvent* event);
@@ -76,6 +76,7 @@ class MoveEvents final : public BaseEvents
 		MoveListMap uniqueIdMap;
 		MoveListMap actionIdMap;
 		MoveListMap itemIdMap;
+		MoveListMap zoneIdMap;
 		MovePosListMap positionMap;
 
 		LuaScriptInterface scriptInterface;

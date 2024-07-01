@@ -1601,3 +1601,14 @@ Item* Tile::getUseItem(int32_t index) const
 
 	return nullptr;
 }
+
+bool Tile::hasZoneId(uint16_t zoneId) const
+{
+	return std::find(m_zoneIds.begin(), m_zoneIds.end(), zoneId) != m_zoneIds.end();
+}
+
+void Tile::setZoneId(const std::vector<uint16_t>& zoneIds)
+{
+	m_zoneIds = std::move(zoneIds);
+	g_game.addGameZone(getTile(), m_zoneIds);
+}
