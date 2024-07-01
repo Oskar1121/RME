@@ -25,6 +25,7 @@
 #include "talkaction.h"
 #include "weapons.h"
 #include "script.h"
+#include "zones.h"
 
 #include <fmt/format.h>
 
@@ -5787,4 +5788,31 @@ bool Game::reload(ReloadTypes_t reloadType)
 		}
 	}
 	return true;
+}
+
+void Game::addGameZone(Tile* tile, const std::vector<uint16_t>& zoneIds)
+{
+	for (auto& zoneId : zoneIds)
+	{
+		auto itZone = m_gameZones.find(zoneId);
+		if (itZone == m_gameZones.end())
+		{
+			m_gameZones.emplace(zoneId, std::make_shared<Zones>(tile));
+		}
+		else
+		{
+			itZone->second->addTile(tile);
+		}
+	}
+}
+
+ZonesPtr Game::getZoneById(uint16_t zoneId)
+{
+	auto itZone = m_gameZones.find(zoneId);
+	if (itZone != m_gameZones.end())
+	{
+		return itZone->second;
+	}
+
+	return nullptr;
 }
